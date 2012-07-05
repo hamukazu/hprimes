@@ -32,10 +32,10 @@ millerRabinCheckM n = repeatKTimesWhileTrue millerRabinCheckOnce n 50
 
 millerRabinCheckOnce n=do
   a<-getStdRandom $ randomR (2,n-1)
-  (let (s,d)=g (n-1) 0
-       m=powerMod a d n in
-   return $ not ( m/=1 && (and $ map ((/=) (n-1))
-                          $ take s $ iterate (\y->(y*y) `mod` n) m)))
+  let (s,d)=g (n-1) 0
+      m=powerMod a d n
+  return $ not ( m/=1 && (and $ map ((/=) (n-1))
+                         $ take s $ iterate (\y->(y*y) `mod` n) m))
     where g n s=if n `mod` 2==0 then g (n `div` 2) (s+1)
                 else (s,n)
 
