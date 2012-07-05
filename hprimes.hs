@@ -4,8 +4,9 @@ import System
 primes = sieve [2..]
   where sieve (p:xs) = p : sieve [x|x <- xs, x `mod` p > 0]
 
+smallNum=100
 oddPrimes=tail primes
-smallOddPrimes=takeWhile (\x->x<100) oddPrimes
+smallOddPrimes=takeWhile (\x->x<smallNum) oddPrimes
 
 repeatKTimesWhileTrue:: (a->IO Bool)->a->Int->IO Bool
 repeatKTimesWhileTrue f x k=repeatKTimesWhileTrue' f x k k
@@ -24,7 +25,8 @@ powerMod a b n
            if b `mod` 2==0 then (c*c) `mod` n
            else (a*c*c) `mod` n
 
-isPrimeM n=if devidedBySmallOddPrimes n then return False else  millerRabinCheckM n
+isPrimeM n=if n<smallNum then return $ elem n (2:smallOddPrimes)
+           else if devidedBySmallOddPrimes n then return False else  millerRabinCheckM n
 devidedBySmallOddPrimes n=or $ map (\x->n `mod` x==0) smallOddPrimes
 millerRabinCheckM n = repeatKTimesWhileTrue millerRabinCheckOnce n 50
 
@@ -44,7 +46,7 @@ main' n m=mapM_ (\x->do z<-isPrimeM x; if z then print x else return ())
 main=do
   a<-getArgs
   if length a==0 then
-      putStrLn "Usage"
+      putStrLn "Usage: hprimes start [stop]"
   else if length a==1 then
            main' (read $ a!!0) (-1)
        else
