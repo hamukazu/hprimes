@@ -5,6 +5,7 @@ Clone of "primes" command implemented in Haskell.
 
 ## Example of Usage
 
+```
 > hprimes 20 40
 23
 29
@@ -25,3 +26,4 @@ Clone of "primes" command implemented in Haskell.
 1000000000000000000000000000000000000000991
 :
 :
+```
