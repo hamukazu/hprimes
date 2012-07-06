@@ -3,7 +3,7 @@ hprimes
 
 Clone of "primes" command implemented in Haskell.
 
-## Example of Usage
+## Examples of Usage
 
 ```
 > hprimes 20 40
